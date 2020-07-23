@@ -11,7 +11,7 @@ services:
         command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
     signserver:
-        image: opinkerfi/primekey-signing-server-ce:1.0.0-alpha
+        image: linuxianer99/primekey-signing-server-ce:5.2.0
         privileged: true
         cap_add:
             - CAP_SYS_ADMIN

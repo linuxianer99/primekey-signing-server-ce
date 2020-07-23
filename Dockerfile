@@ -1,10 +1,5 @@
 FROM centos:7
 
-LABEL is.opinkerfi.version="1.0.0-alpha" \
-packager="Opin Kerfi hf." \
-is.opinkerfi.release-date="2020-01-02" \
-maintainer="Samúel Jón Gunnarsson <samuel@ok.is>"
-
 ENV container docker
 # Sign Server and Wildfly environment variables
 ENV APPSRV_HOME=/opt/wildfly
@@ -44,9 +39,9 @@ RUN cd /tmp; \
 	chmod +x /opt/wildfly/bin/*.sh; \
 	cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/; \
 	cd /tmp; \
-	wget -q https://sourceforge.net/projects/signserver/files/signserver/5.0/signserver-ce-5.0.0.Final-bin.zip; \ 
-	unzip /tmp/signserver-ce-5.0.0.Final-bin.zip -d /opt; \
-	mv /opt/signserver-ce-5.0.0.Final /opt/signserver; \
+	wget -q https://sourceforge.net/projects/signserver/files/signserver/5.2/signserver-ce-5.2.0.Final-bin.zip; \ 
+	unzip /tmp/signserver-ce-5.2.0.Final-bin.zip -d /opt; \
+	mv /opt/signserver-ce-5.2.0.Final /opt/signserver; \
 	mkdir /opt/wildfly/standalone/configuration/keystore; \
 	cp /opt/signserver/res/test/dss10/dss10_demo-tls.jks $APPSRV_HOME/standalone/configuration/keystore/keystore.jks; \
 	cp /opt/signserver/res/test/dss10/dss10_truststore.jks $APPSRV_HOME/standalone/configuration/keystore/truststore.jks
@@ -60,7 +55,7 @@ COPY files/config/deploy-signserver.service /etc/systemd/system/
 RUN systemctl enable deploy-signserver; \
 	systemctl enable wildfly; \
 	rm /tmp/wildfly-14.0.1.Final.zip; \
-	rm /tmp/signserver-ce-5.0.0.Final-bin.zip; \
+	rm /tmp/signserver-ce-5.2.0.Final-bin.zip; \
 	chown -R wildfly:wildfly /opt/signserver; \
 	chown -R wildfly:wildfly /opt/wildfly; \
 	chown -R wildfly:wildfly /etc/wildfly
